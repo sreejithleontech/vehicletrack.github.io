@@ -1,0 +1,89 @@
+<html>
+<center>
+<h1 style="color:red;"> Diving into smart Home automation</h1>
+<h1 style="color:red;" >Project done by Sonali&Nimmy</h1>
+<img src="Diving-into-smart-home-automation.jpg"  width="1000" height="300">
+<body style="background-color:lightblue;" >
+</center>
+<br>
+<left>
+<p style="color:red;"align="left">LIGHT CONTROL</p>
+<form method="GET">
+<input type="submit" name="on" value="ON">
+<input type="submit" name="off" value="OFF">
+<br>
+<br>
+<br>
+</form>
+<p>FAN CONTROL</p>
+<form method="post">
+<input type="submit" name="fon" value="ON">
+<input type="submit" name="fof" value="OFFER">
+</form>
+<p>Pls click the below link to findut the Garbage level</p>
+<a href="http://192.168.0.13/value.txt">Garbage level</a>
+<button id="11" class="led">Toggle Pin 11 </button> <!-- button for pin 11 -->
+<br>
+	<button id="12" class="led">Toggle Pin 12</button> <!-- button for pin 12 -->
+<br>
+	<button id="13" class="led">Toggle Pin 13</button> <!-- button for pin 13 -->
+		
+	<script src="jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(".led").click(function(){
+				var p = $(this).attr('id'); // get id value (i.e. pin13, pin12, or pin11)
+				// send HTTP GET request to the IP address with the parameter "pin" and value "p", then execute the function
+				$.get("http://"192.168.0.22", {pin:p}); // execute get request
+			});
+		});
+	</script>
+<?php
+$value1 = "";
+$value1 = !empty($_GET['data']) ? $_GET['data'] : '';
+if (isset($_GET['data']))
+{ echo $value1;
+$myFile = "value.txt";
+$fh = fopen($myFile, 'w') or die("can't open file");
+fwrite($fh, $value1);
+fclose($fh);
+}
+if (isset($_GET['on']))
+{
+	$dd="ON";
+$myFile = "level.txt";
+$fh = fopen($myFile, 'w') or die("can't open file");
+fwrite($fh, "1");
+fclose($fh);
+
+}
+if (isset($_POST['off']))
+{
+$myFile = "level.txt";
+$fh = fopen($myFile, 'w') or die("can't open file");
+fwrite($fh, "high");
+fclose($fh);
+
+}
+
+if (isset($_POST['foff']))
+{
+$myFile = "level1.txt";
+$fh = fopen($myFile, 'w') or die("can't open file");
+fwrite($fh, "FOFF");
+fclose($fh);
+}
+
+if (isset($_POST['fon']))
+{
+
+$myFile = "level1.txt";
+$fh = fopen($myFile, 'w') or die("can't open file");
+fwrite($fh, "FON");
+fclose($fh);
+
+}
+
+?>
+</body>
+</html>
